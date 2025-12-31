@@ -1,0 +1,29 @@
+##!/usr/bin/env python3
+
+#download_checker was put together in a few minutes, feel free to change and fix. 
+#This was meant for a community built on open source.
+#run the code 'python3 ~/download_checker/download_checker.py' for it to work.
+#Sadly as of right now, you have to keep the terminal open.
+
+import os
+import time
+
+DOWNLOAD_FOLDER = os.path.expanduser("~/Downloads")
+CHECKED_FILES = set()
+
+def warn_user(filename):
+    print(f"[WARNING] The file '{filename}' may not be open source!")
+
+while True:
+    try:
+        files = set(os.listdir(DOWNLOAD_FOLDER))
+        new_files = files - CHECKED_FILES
+
+        for file in new_files:
+            warn_user(file)
+            CHECKED_FILES.add(file)
+
+        time.sleep(2)
+    except KeyboardInterrupt:
+        print("\nExiting download monitor.")
+        break
